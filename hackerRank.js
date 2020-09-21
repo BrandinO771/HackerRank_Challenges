@@ -359,7 +359,7 @@ function checkMagazine(magazine, note) {
                         magazine.splice( wordPos, 1 );
                         // console.log('magazine', magazine);
                         }
-            }
+                    }
         }
     if ( proceed == false ||  count != noteLen ) {console.log('No')}
     else { console.log("Yes");}
@@ -435,7 +435,9 @@ testArr1 = [ [ 1,2,3,-4,5,6],
 hourglassSum1(testArr1);
 
 hourglassSum(testArr1);
-
+/////////////////////////////////////////////////////////////////
+// object oriented submission 30 day challenge
+////////////////////////////////////////////////////////////////
 function weird(N) {
 /*
 N must be greater equal to 1 
@@ -458,3 +460,198 @@ weird(1);
 weird(4);
 weird(3);
 
+function Person(initialAge){
+    /*
+if a negative argument is passed as , the constructor should set  to  and print Age is not valid, setting age to 0.. In addition, you must write the following instance methods:
+yearPasses() should increase the  instance variable by .
+amIOld() should perform the following conditional actions:
+If <13, print You are young..
+If >=13 <18 and , print You are a teenager..
+Otherwise, print You are old..
+*/
+    // Add some more code to run some checks on initialAge
+let ageCheck = initialAge;
+ 
+if (ageCheck < 0 ) { 
+    console.log("Age is not valid, setting age to 0" );
+    ageCheck = 0;
+    }
+ 
+  let age = ageCheck;
+
+  this.amIOld=function(){
+   // Do some computations in here and print out the correct statement to the console
+    if (age >= 0 && age <13 )  console.log("You are young", age );    
+    if (age >= 13 && age <18 ) console.log("You are a teenager", age ); 
+    if (age >= 18 )  console.log("You are old", age );     
+    return age;    
+  };
+
+   this.yearPasses=function(){
+          // Increment the age of the person in here
+          age +=1;
+   };
+}
+
+function main2() {
+
+    var age=18;
+    var p=new Person(age);
+    p.amIOld();
+    for(j=0;j<3;j++){
+        p.yearPasses();
+        
+    }
+    p.amIOld();
+    console.log("");   
+}
+main2();
+
+/////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+let myString1 = 'theBlackSon';
+if ( myString1.includes('Black'))
+        console.log(myString1, 'contains what you are looking for ');
+else
+        console.log(myString1, 'contains what you are looking for ');
+
+ 
+ function makeAnagram(a, b) {
+        // compare a to b if a is NOT in b increment counter
+        let aa=a.split('');
+        let bb=b.split('');
+        let deletionCount = 0;
+        let deletedList = [];
+        aa.sort();// THESE BOTH HAVE TO BE SORTED TO WORK
+        bb.sort();
+        //-> get list of all non shared elements  from both lists
+        for ( let letter of  aa )
+            if( !bb.includes(letter) )  deletedList.push(letter);
+
+        for ( let letters of bb )
+            if( !aa.includes(letters) )  deletedList.push(letters);
+        
+        for ( let char of deletedList ) //-> DELETE non shared elements from each list
+            {
+            if ( aa.includes(char)   ) { aa.splice(  aa.indexOf(char) , 1  ) ;}
+            if ( bb.includes(char)   ) { bb.splice(  bb.indexOf(char) , 1  ) ;}
+            }
+        // console.log( 'len of delete list' , deletedList.length , 'len of aa', aa.length,  'len of bb', bb.length  )
+        //-> ONLY KEEP PAIRS
+        // got through remaining lists and compare filter results if one is larger 
+        // than the other , delete that many from the other list 
+        let comp1 = [];
+        let comp2 = [];
+        for ( let final of aa )
+            {
+                comp1 = aa.filter(x => x == final);
+                comp2 = bb.filter(x => x == final);
+
+                if( comp1.length > comp2.length ) //the odd man out 
+                    {
+                        aa.splice(aa.indexOf(final),  comp1.length - comp2.length );
+                        deletionCount += (comp1.length - comp2.length);
+                    } 
+                else 
+                    {
+                        bb.splice(bb.indexOf(final),  comp2.length - comp1.length );
+                        deletionCount += (comp2.length - comp1.length);
+                    } 
+            }
+
+            deletionCount += deletedList.length;
+       console.log('deletion ct', deletionCount,'deletedList',  deletedList, 'a', aa , 'b', bb);
+       return deletionCount;
+
+       }
+
+// makeAnagram('cde', 'abc');
+makeAnagram('fcrxzwscanmligyxyvym', 'jxwtrhvujlmrpdoqbisbwhmgpmeoke');
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//// --> THIS OTHER GUY SUBMITTED BELOW -STILL TRYING TO FIGURE IT OUT 
+/// BUT LOOKS LIKE HE GOT NUMERIC VALUES FOR EACH CHARACTER CREATED POS AND NEG FOR COMPARE THEN ADDED IT ALL UP
+function processData(left, right) {
+	const count = new Array(26).fill(0);
+	const pos = s => {
+		return   s.charCodeAt(0) - 'a'.charCodeAt(0) ;
+	}
+
+	for (let i = 0; i < left.length; ++i) {
+		count[pos(left.charAt(i))]++;
+	}
+
+	for (let i = 0; i < right.length; ++i) {
+        count[pos(right.charAt(i))]--;
+        // console.log( pos(right.charAt(i)) )
+	}
+	// console.log(count);
+	const diff = count.reduce((p, c) => {
+		return Math.abs(p) + Math.abs(c);
+	}, 0);
+  
+  console.log('count', count)
+  console.log(diff);
+}
+
+processData('fcrxzwscanmligyxyvym', 'jxwtrhvujlmrpdoqbisbwhmgpmeoke');
+
+//////////////////////////////////////////////////////////////////////////////////////
+// how many deletions needed to remove repeated consecutive letters 
+//////////////////////////////////////////////////
+function alternatingCharacters(s) {
+    let dels = 0;
+    if ( typeof s == 'string'){
+       for ( let y =0;  y < s.length-1; y++) 
+           if (s[y] == s[(y+1)] ) dels+=1
+           
+       return dels ;
+       }
+   }
+console.log( alternatingCharacters('AAABBBAABB' )  );
+console.log( alternatingCharacters('AABBAABB' )  );
+console.log( alternatingCharacters('ABABABAA')  );
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+// Day 6: 
+//input is a string with line seperators '\n', first element =number of strings, then strings , 
+/// iterate through strings break into 2 strings if index pos of char odd or even
+//////////////////////////////////////////////////
+function processData(input) {
+
+    let strArr = input.split('\n');//make array
+    strArr.shift();//drop first element which is num of sep strings
+
+    for (  let i of strArr  ){
+        str1 ='';
+        str2 = '';
+        for (  let  x  in  i  ){
+            if (x % 2 == 0) str1+=i[x] ;// if odd or even
+            else str2+=i[x] 
+        }
+    console.log(str1,str2);
+    }
+} 
+console.log('this is process data solution:');
+processData( '2\nHacker\nRank');
+
+//////////////////////////////////////////////////
+// DAY 7 : ARRAY - REVERSE - PRINT - 1 LINE W/ SPACES 
+/////////////////////////////////////////////////
+function main1(arr) {
+    ////-->MY CODE BELOW :
+    /// --> REVERSE INPUT ARRAY - PRINT ON ONE LINE - W/SPACE BTWN EACH
+    // - NOTES: I REFACTORED MORE AFTER SUBMISSION DROPPING to.String() AND REALIZED FROM OTHER USER COULD HAVE USED JOIN
+    arr.reverse();
+    let str = '';
+    for ( let i of arr )   str +=  i + ' ';
+    // i.toString(); //> THIS NOT NEEDED
+    // str+=i+' '; //> MOVED AVOVE 
+     /// I COULD HAVE USED JOIN!!!!
+    console.log(arr.join(' '));
+    console.log(str)
+}
+console.log('this is main1 solution:');
+main1([5,4,3,2,1]);
+///////////////////////////////////////////////////////
