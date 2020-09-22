@@ -2,6 +2,9 @@
 /*
 ///////////////////////////////////////////////////////////////////
 hello I am Brandon Steinke 
+EMAIL. brandon.steinke@yahoo.com
+PORTFOLIO. https://brandino771.github.io/
+
 below are my hackerRank challenge solutions 
 started 9/2020
 solved in JavaScript Node.js
@@ -133,26 +136,9 @@ console.log("the index pos eml2==8 is=",    obj1.findIndex(function(x){ return x
 //////////////////////////////////////////////////////////////////
 
 let = summary1 = `
-An avid hiker keeps meticulous records of their hikes. During the last hike that took exactly  steps, for every step it was noted if it was an uphill, , or a downhill,  step. Hikes always start and end at sea level, and each step up or down represents a  unit change in altitude. We define the following terms:
-
-A mountain is a sequence of consecutive steps above sea level, starting with a step up from sea level and ending with a step down to sea level.
-A valley is a sequence of consecutive steps below sea level, starting with a step down from sea level and ending with a step up to sea level.
-Given the sequence of up and down steps during a hike, find and print the number of valleys walked through.
-
-Example:
-
-The hiker first enters a valley  units deep. Then they climb out and up onto a mountain  units high. Finally, the hiker returns to sea level and ends the hike.
-Function Description
-Complete the countingValleys function in the editor below.
-countingValleys has the following parameter(s):
-
-int steps: the number of steps on the hike
-string path: a string describing the path
-Returns
-
+U = UP , D = DOWN
 int: the number of valleys traversed
 Input Format
-
 The first line contains an integer , the number of steps in the hike.
 The second line contains a single string , of  characters that describe the path.
 
@@ -258,8 +244,6 @@ const filtered01 = testarr.filter(function(x){
 });
 console.log('the filtered val', filtered01);
  
-
-
 //////////////////////////////////////////////////////////////////////////////
 // Complete the checkMagazine function below.
 // 2 cases failed out of 22
@@ -654,4 +638,67 @@ function main1(arr) {
 }
 console.log('this is main1 solution:');
 main1([5,4,3,2,1]);
-///////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// <>  INTERVIEW PREP compare all pairs in array and return absolute smallest diff
+//////////////////////////////////////////////////////////////////////////////////////////
+//=> NOTES : THEY THREW IN SOME LARGE SETS OF 100K TOTAL NUMBERS,
+// THE LARGER SETS THE SOLUTION FOUND BY SORTING THEN CHECKING ADJACENT NUMBERS 
+// FOR SMALL SET CHECK ALL COMBOS 
+/// this times out on large sets - we should break if min is zero
+function minimumAbsoluteDifference(arr) {
+    /// this times out on large sets - we should break if min is zero
+    /// I RESUBMITTED FOR JUST THE TOP FOR LOOP AND IT WORKED FOR ALL THE 
+    // TOP FOR LOOP DOES NOT CHECK ALL PERMUTATIONS AES INSTRUCTIONS WANTED ? 
+    let results = [];
+    let diff = -1;
+    let ct = 0;
+        arr.sort(function(a, b) { return  b - a });
+        ///==> FIRST CHECK ALL ADJENCENT PAIRS 
+        if ( arr.length > 500){ // for optimization
+        for ( let t = 0; t < arr.length-1; t++)
+            {
+                diff = Math.abs(  parseInt(arr[t]) - parseInt(arr[(t+1)]) );
+                if ( results.length == 0) results[0] = diff;
+                if ( diff < results[0] ) results[0] = diff;
+                if ( diff == 0){ return results[0]; }
+            }}
+        ///=> NEXT CHECK ALL POSSIBLE PAIRS -this could be 10 billion combos on large set!!
+        if ( arr.length < 500){
+        for ( let i of arr){
+            for( let x of  arr ){
+                if ( i != x ){
+                    diff = Math.abs(  parseInt(i) - parseInt(x) );
+                    if ( results.length == 0) results.push(diff)
+                    if ( diff < results[0] ) results[0] = diff;
+                    if (diff == 0){ results[0] = 0; break }
+                    } 
+           }}}
+        return results[0];
+    }
+    
+// console.log(data)
+// process1([-59, -36, -13, 1, -53, -92, -2, -96, -54, 75]);// should be 1
+console.log(minimumAbsoluteDifference([-59, -36, -13, 1, -53, -92, -2, -96, -54, 75]) );
+// process1([3, -7, 0]);// should be 3
+// process1([1, -3, 71, 68, 17,]); // should be 3 
+console.log(minimumAbsoluteDifference([1, -3, 71, 68, 17]) );
+// console.log('typeof data1', typeof data1, data1.length);
+console.log('processing large set comp');
+// console.log(minimumAbsoluteDifference(data1)); // should be 3 
+//////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
