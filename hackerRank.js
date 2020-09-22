@@ -679,10 +679,10 @@ function minimumAbsoluteDifference(arr) {
     
 // console.log(data)
 // process1([-59, -36, -13, 1, -53, -92, -2, -96, -54, 75]);// should be 1
-console.log(minimumAbsoluteDifference([-59, -36, -13, 1, -53, -92, -2, -96, -54, 75]) );
+console.log(minimumAbsoluteDifference( [-59, -36, -13, 1, -53, -92, -2, -96, -54, 75]) );
 // process1([3, -7, 0]);// should be 3
 // process1([1, -3, 71, 68, 17,]); // should be 3 
-console.log(minimumAbsoluteDifference([1, -3, 71, 68, 17]) );
+console.log(minimumAbsoluteDifference( [1, -3, 71, 68, 17]) );
 // console.log('typeof data1', typeof data1, data1.length);
 console.log('processing large set comp');
 // console.log(minimumAbsoluteDifference(data1)); // should be 3 
@@ -690,12 +690,60 @@ console.log('processing large set comp');
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
+myMap = new Map();
+// myMap.push({ name : 'Brandon', phone : '123-456-7890'});
 
+
+myMap.set( 'Tina', { phone: '222-456-7890'} );
+myMap.set( 'Brandon', { phone: '222-5555-7890'} );
+console.log( 'Brandons info',    myMap.get('Brandon').phone        );
+console.log( 'Brandons info', myMap.get('Brandon') );
+
+// myDict = new Set();
+myDict = [];
+
+// myMap[0].append( ('Tina', '222-456-7890'));
+myDict.push( ['Tina', '222-456-7890']);
+
+console.log('myDict',myDict)
+
+console.log(myMap)
 //////////////////////////////////////////////////////////////////////////////////////////
-
+// Day 8: Dictionaries and Maps
 //////////////////////////////////////////////////////////////////////////////////////////
+/*
+Given  names and phone numbers, assemble a phone book that maps friends' names 
+to their respective phone numbers. You will then be given an unknown number of names 
+to query your phone book for. For each  queried, print the associated entry from your 
+phone book on a new line in the form name=phoneNumber; 
+if an entry for  is not found, print Not found instead.
+*/
+function processData1(input) {
+    //BRANDON STEINKE SUBMISSION - PHONE BOOK CHECK
+    //Day 8: Dictionaries and Maps
+    let phoneBook  = new Map();
+    let temp =[];
+    // input = input.split('\n'); 
+    
+    for ( let i = 1; i <= parseInt(input[0]) ; i++ ){
+        temp = input[i].split(' ');
+        phoneBook.set( temp[0], { phone: temp[1] } );
+        }
 
-
+    for ( let x = 1 +(parseInt(input[0]));  x < input.length; x++){
+        let exists = phoneBook.get( input[x]  );
+        if ( exists ) { console.log( `${input[x]}=${exists.phone}` );}
+        else {  console.log('Not found');}
+    }      
+} 
+console.log('the day 8 array map results');
+processData1( [ '3',
+  'sam 99912222',
+  'tom 11122222',
+  'harry 12299933',
+  'sam',
+  'edward',
+  'harry' ]);
 //////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////
