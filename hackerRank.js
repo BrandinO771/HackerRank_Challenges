@@ -696,7 +696,7 @@ myMap = new Map();
 
 myMap.set( 'Tina', { phone: '222-456-7890'} );
 myMap.set( 'Brandon', { phone: '222-5555-7890'} );
-console.log( 'Brandons info',    myMap.get('Brandon').phone        );
+console.log( 'Brandons info', myMap.get('Brandon').phone        );
 console.log( 'Brandons info', myMap.get('Brandon') );
 
 // myDict = new Set();
@@ -744,9 +744,84 @@ processData1( [ '3',
   'sam',
   'edward',
   'harry' ]);
-//////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
+// Day 9: Recursion 3
+/////////////////////////////////////////////////////////////////////////////////////////
+
+//>> DIRECTLY BELOW WAS TESTS PRIOR TO SUBMISSION
+let  answer = 0;
+function factorial1(n) {
+    // console.log(' top this is answer', answer, 'this is n', n);
+    if ( answer > 0 )   { answer =  answer * n;   n-=1;   console.log(' ongoing answer', answer, 'this is n', n);}
+    if ( answer == 0 )  { answer = ( n * (n-1));  n-=2;   console.log(' initial answer', answer, 'this is n', n);} //else  { answer * n; }
+    if( n > 1 ) factorial(n);  
+    return answer;
+}
+console.log( 'factorial answer', factorial1(6) );
+
+////////////////////////////////////////////////
+///>>BELOW SUBMITTED TO HACKER RANK CHALLENGE
+// BRANDON STEINKE SUBMISSION RECURSIVE CALC OF FACTORIAL - TRICKIER THAN ORIGINALLY THOUGHT!
+answer = 0;
+function factorial(n) {
+    if ( answer > 0 )   { answer =  answer * n;    n-=1;  }
+    if ( answer == 0 )  { answer = ( n * (n-1) );  n-=2;  } 
+    if ( n > 1 ) factorial(n);  
+    return answer;
+}
+function main3() {
+    let result = factorial(11);// answer should be 39916800
+    console.log("this is the result", result);
+}
+main3();
+/////////////////////////////////////////////////
+// Day 10: Binary Numbers
+/////////////////////////////////////////////////
+// convert number to binary then count max group of consect 1's
+//  let inputzString =['1911']
+//  let inputzString =['6'] // should be 2
+//  let inputzString =['5'] // should be 1 
+ let inputzString =['65535']; //should be 16
+  /////////////////////////////////////
+  // My code below 
+function convBinary(num){  
+    return ( num  >>> 0 ).toString(2); 
+    }
+let num='';
+num = convBinary( inputzString[0]);
+console.log('this is num binary', num);
+let consectOnes =0;
+let consectSave = 0;
+ for ( let n of num ){
+     if ( n == '1') consectOnes+=1; 
+     if ( n == '0'){
+         if( consectSave < consectOnes) { consectSave = consectOnes; } 
+         consectOnes = 0;
+ }}
+ if( consectSave < consectOnes) {consectSave = consectOnes; } 
+
+console.log(" this is consectSave", consectSave);
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
