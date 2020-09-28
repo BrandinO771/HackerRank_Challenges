@@ -371,20 +371,22 @@ function hourglassSum1(arr) {
                }
        }
     //> ANOTHER WAY TO FIND MAX IN ARRAY
-    // let max = totals.reduce(function(a, b) {
-    //     return Math.max(a, b);
-    // });
+    let max = totals.reduce(function(a, b) {
+        return Math.max(a, b);
+    });
     // console.log( "the max is", max   );
     //   console.log(totals);
-      totals.reverse();
-      console.log('The max total is ver1', totals[0]);
-      console.log( totals[0] );
+    //   totals.reverse();
+      console.log('The max total in the following array is ver1', max);
+      console.log( max );
     }
 ///////////////////////////////////////////////////////////////////////
 // THIS VERSION SUBMITTED TO HR = REMOVING SEVERAL UNNECESSARY STEPS 
+// this was also the challenge from Day 11: 2D Arrays the refactored version below - I got read of sums array was extra not needed
 ///////////////////////////////////////////////////////////////////////
 function hourglassSum(arr) {
     // for every index - look right 3 down center 1 down 3
+    let storedSums = 0;
     let sums = 0;
     let totals = [];
 
@@ -396,9 +398,11 @@ function hourglassSum(arr) {
                         arr[(rows+2)][col] +  arr[(rows+2)][(col+1)] +   arr[(rows+2)][(col+2)];
 
             totals.push(sums);
+            if( sums > storedSums) storedSums = sums;
             sums =0;
         }}
     console.log(totals);
+    console.log("this is hourglass sums", storedSums);
     //> THIS IS REVERSE SORT THE EFFECTIVE WAY, WHEN YOU HAVE NEGATIVES SIMPLE .sort() and .reverse() doesnt work
     totals.sort(function(b, a){return a-b});
     // console.log(totals);
@@ -406,19 +410,38 @@ function hourglassSum(arr) {
     return totals[0];
     }
 
-testArr1 = [ [ 1,2,3,-4,5,6],
-            [20,21,22,-23,-24,-25,26],
-            [30,31,32,33,34,35,36],
-            [40,-41,-42,-43,-44,-45,-46],
-            [50,51,52,53,54,55,56],
-            [60,61,62,63,64,65,66]
-           ]
 
-            console.log( 'testArr1[1][3]' , testArr1[1][2]  );
+function hourglassSum2(arr) {
+        let storedSums = -1000;
+        let sums = 0;
+    
+        for( let rows = 0; rows < arr.length-2 ; rows++ ){
+            for (let col=0;  col < arr[rows].length-2  ; col++ ){
+    
+                sums   =    arr[rows][col]     +  arr[rows][(col+1)]     +   arr[rows][(col+2)] +
+                                                  arr[(rows+1)][(col+1)] +
+                            arr[(rows+2)][col] +  arr[(rows+2)][(col+1)] +   arr[(rows+2)][(col+2)];
+                if( sums > storedSums) storedSums = sums;
+                sums =0;
+            }}
+        return storedSums;
+        }
+    
+        
+let  testArr1 = [ [ 1,2,3,-4,5,6],
+        [20,21,22,-23,-24,-25,26],
+        [30,31,32,33,34,35,36],
+        [40,-41,-42,-43,-44,-45,-46],
+        [50,51,52,53,54,55,56],
+        [60,61,62,63,64,65,66]
+    ]
+console.log("this is hourglass2 result", hourglassSum2(testArr1)  );
 
-hourglassSum1(testArr1);
+console.log( 'testArr1[1][3]' , testArr1[1][2]  );
 
-hourglassSum(testArr1);
+console.log("this is hourglass1 result sum array",hourglassSum1(testArr1));
+
+console.log("this is hourglass result",hourglassSum(testArr1));
 /////////////////////////////////////////////////////////////////
 // object oriented submission 30 day challenge
 ////////////////////////////////////////////////////////////////
@@ -804,13 +827,157 @@ let consectSave = 0;
 
 console.log(" this is consectSave", consectSave);
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Day 11 2D Arrays >>> this was exactly like the hour glass above so thats why no code is below
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////
+// Day 12 inheritance class
+//////////////////////////////////////////////////////
+
+class Persons {
+    constructor(firstName, lastName, identification) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.idNumber = identification;
+    }
+    
+    printPerson() {
+        console.log(
+            "Name: " + this.lastName + ", " + this.firstName 
+            + "\nID: " + this.idNumber
+        )
+    }
+}
+
+class Student extends Persons {
+
+    /////////////////////////////////////////
+    // ALL MY CODE BELOW 
+    ///////////////////////////////////////////
+     
+     constructor(...parms){ 
+       //>> inherit the parent parameters
+        let theParms = super(parms) ;
+        this.allParms = theParms;
+        // console.log('all parms', allParms);
+        //>> restructure the object extract all from firstName property
+        this.allParms.lastName = this.allParms.firstName[1];
+        this.allParms.idNumber = this.allParms.firstName[2];
+        this.allParms.scores  = this.allParms.firstName[3];
+        this.allParms.firstName = this.allParms.firstName[0];
+     }
+
+  printPerson (){
+      console.log(`Name: ${this.allParms.lastName}, ${this.allParms.firstName}\nID: ${this.allParms.idNumber}`);
+      }
+  
+    /*   @param firstName - A string denoting the Person's first name.
+    *   @param lastName - A string denoting the Person's last name.
+    *   @param id - An integer denoting the Person's ID number.
+    *   @param scores - An array of integers denoting the Person's test scores.
+    */
+    // Write your constructor here
+    /*	
+    *   Method Name: calculate
+    *   @return A character denoting the grade.
+    */
+     calculate(){
+        let score = [];
+        score = this.scores;
+        let avg = 0;
+        let sums = 0;
+        let grade = '';
+        for ( let testResult of score) sums+=parseInt(testResult);
+
+        avg = sums/score.length;
+
+             if ( avg >= 90 ) grade ='O'
+        else if ( avg >=80 && avg < 90 ) grade ='E'
+        else if ( avg >=70 && avg < 80 ) grade ='A'
+        else if ( avg >=55 && avg < 70 ) grade ='P'
+        else if ( avg >=40 && avg < 55 ) grade ='D'
+        else grade = 'T';
+
+        // console.log('grade',grade) 
+        return grade;
+        };
+}
+
+function main8() {
+    let firstName ='Ted'
+    let lastName = "Potts"
+    let id = 134654654
+    let testScores = [80, 50]
+
+    let s = new Student(firstName, lastName, id, testScores)
+    s.printPerson()
+    s.calculate()
+    console.log('Grade: ' + s.calculate())
+}
+main8();
 
 ///////////////////////////////////////////////////////////////////////////////
+///Day 13: Abstract Classes
 ///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
+class Book {
+    constructor(title, author) {
+        if (this.constructor === Book) {
+            throw new TypeError('Do not attempt to directly instantiate an abstract class.'); 
+        }
+        else {
+            this.title = title;
+            this.author = author;
+        }
+    }
+    
+    display() {
+        console.log('Implement the \'display\' method!')
+    }
+}
+// Declare your class here.
+    /**   
+    *   Class Constructor
+    *   @param title The book's title.
+    *   @param author The book's author.
+    *   @param price The book's price.
+    **/// Write your constructor here
 
 
+    /////////////////////////////////////////////
+    //>Brandon Steinke Submission below MyBook class below 
+    /////////////////////////////////////////////
+class MyBook{
+    constructor(...parms)
+    {
+        this.props = parms;
+        this.theBook= {
+                Title : this.props[0],
+                Author: this.props[1],
+                Price : this.props[2]
+        }
+    }
+
+    /*   Method Name: display
+    *   Print the title, author, and price in the specified format.
+    // Write your method here*/
+    display(){
+        let bookObj =this.theBook
+        for ( let key of Object.keys(bookObj) )
+             console.log(key+':', bookObj[key]);
+    }
+    
+// End class
+}
+function main10() {
+    let title = "Toads on the Roads"
+    let author = "Toady McFlippers"
+    let price =  400.00
+    let book = new MyBook(title, author, price)
+    book.display()
+}
+
+main10();
 
 
 
