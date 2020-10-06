@@ -982,6 +982,50 @@ main10();
 
 
 
+///////////////////////////////////////////
+//// Day 20 bubble sort - receive arr sort ascending, return first last and number of swaps
+//////////////////////////////////////////
+//HackerRank provided a template for the bubble sort algorithm in python? and we had to implement
+   //>> Brandon Steinke submission below:
+   function BubbleSorts1(arr){
+    let total_swaps=0
+    let temp_curr=0
+    let temp_next=0
+    let curr = 0
+    let nexts = 0
+       
+       for (let i = 0; i < arr.length; i++) {
+       // Track number of elements swapped during a single array traversal
+           let numberOfSwaps = 0;
+       
+           for (let j = 0; j < arr.length - 1; j++) {
+               // Swap adjacent elements if they are in decreasing order
+               curr = arr[j]
+               nexts = arr[(j + 1)]
+               temp_curr
+               temp_next
+               if ( curr > nexts ){
+                   temp_curr = nexts
+                   temp_next = curr
+                   arr[j] = temp_curr
+                   arr[(j + 1)] = temp_next
+                   numberOfSwaps++;
+                   total_swaps +=1;
+               }
+           }
+       
+       // If no elements were swapped during a traversal, array is sorted
+               if (numberOfSwaps == 0) {
+               break;
+           }
+       }
+       console.log('bubbleSorts1 results', arr)
+       console.log(`Array is sorted in ${total_swaps} swaps.`);
+       console.log(`First Element: ${arr[0]}`);
+       console.log(`Last Element: ${arr[(arr.length-1)]}`);
+}
+BubbleSorts1([3,2,1]);
+
 
 
 
